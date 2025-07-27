@@ -9,9 +9,21 @@ export default function Header() {
       <Container>
         <nav className="flex items-center">
           <Link href="/">
-            <Image src="/logo-transparent.png" width={80} height={80} />
+            <Image
+              src="/logo-transparent.png"
+              width={80}
+              height={80}
+              alt="Logo"
+            />
           </Link>
           <SearchInput />
+
+          <Link
+            href="/dashboard/new-article"
+            className="border rounded-md py-2 px-4"
+          >
+            Login
+          </Link>
         </nav>
       </Container>
     </header>
