@@ -18,8 +18,8 @@ export default function Card({
 }: CardProps) {
   return (
     <Element>
-      <div style={{ position: "relative", width: "100%", height: "200px" }}>
-        <Image src={imageUrl} alt={alt} fill style={{ objectFit: "cover" }} />
+      <div>
+        <Image src={imageUrl} alt={alt} width={50} height={50} />
       </div>
       <div>
         <h3>{title}</h3>
