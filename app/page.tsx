@@ -1,6 +1,8 @@
 import Card from "@/components/card";
 import Container from "@/components/container";
+import PageTitle from "@/components/page-title";
 import prisma from "@/lib/prisma";
+import Link from "next/link";
 
 export default async function Home() {
   const posts = await prisma.post.findMany();
@@ -9,12 +11,14 @@ export default async function Home() {
   return (
     <div>
       <Container>
-        <h2 className="text-center text-2xl font-mono font-semibold">
-          Latest articles
-        </h2>
-        <section className="flex">
+        <PageTitle title="آخر المقالات" />
+        <section className="py-4 grid gap-8 grid-cols-[repeat(auto-fill,minmax(160px,1fr))]">
           {posts.map((post) => (
-            <Card key={post.id} title={post.title} content={post.content} />
+            <Card
+              key={post.id}
+              href={`/post/${post.slug}?id=${post.id}`}
+              title={post.title}
+            />
           ))}
         </section>
       </Container>

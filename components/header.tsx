@@ -20,9 +20,9 @@ export default function Header() {
 
           <Link
             href="/dashboard/new-article"
-            className="border rounded-md py-2 px-4"
+            className="border rounded-md py-2 px-4 font-tajawal"
           >
-            Login
+            تسجيل الدخول
           </Link>
         </nav>
       </Container>

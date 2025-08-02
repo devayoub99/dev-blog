@@ -9,7 +9,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-tajawal: var(--font-tajawal);
   --font-mono: var(--font-geist-mono);
 }
 

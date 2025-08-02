@@ -3,8 +3,8 @@ export default function SearchInput() {
     <div className="flex-2/3 flex justify-center">
       <input
         type="search"
-        className="border rounded-md p-2 font-mono"
-        placeholder="Search by topic..."
+        className="border rounded-md p-2 font-tajawal"
+        placeholder="بحث عن مقالة..."
       />
     </div>
   );

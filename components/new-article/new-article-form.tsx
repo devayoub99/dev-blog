@@ -1,13 +1,21 @@
+import prisma from "@/lib/prisma";
+import slugify from "slugify";
+import BlogEditor from "../blog-editor";
+
 export default function NewArticleForm() {
   const formAction = async (formData: FormData) => {
     "use server";
-    console.log("formData", formData.get("title"));
+    const title = formData.get("title");
+    const slug = slugify(title);
+
+    try {
+      const response = await prisma.post.create({
+        data: { title, slug, authorId: 1 },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  return (
-    <form action={formAction}>
-      <input name="title" placeholder="Article title" />
-      <button>Submit</button>
-    </form>
-  );
+  return <BlogEditor />;
 }
