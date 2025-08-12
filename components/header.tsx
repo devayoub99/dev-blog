@@ -18,12 +18,20 @@ export default function Header() {
           </Link>
           <SearchInput />
 
-          <Link
-            href="/dashboard/new-article"
-            className="border rounded-md py-2 px-4 font-tajawal"
-          >
-            تسجيل الدخول
-          </Link>
+          <div className="flex gap-4">
+            <Link
+              href="/dashboard/new-article"
+              className="border rounded-md py-2 px-4 font-tajawal"
+            >
+              إضافة مقالة
+            </Link>
+            <Link
+              href="/login"
+              className="border rounded-md py-2 px-4 font-tajawal"
+            >
+              تسجيل الدخول
+            </Link>
+          </div>
         </nav>
       </Container>
     </header>
