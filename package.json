@@ -15,9 +15,13 @@
     "@editorjs/paragraph": "^2.11.7",
     "@prisma/client": "^6.12.0",
     "@prisma/extension-accelerate": "^2.0.2",
+    "@tailwindcss/typography": "^0.5.16",
+    "markdown-it": "^14.1.0",
     "next": "15.4.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-markdown": "^10.1.0",
+    "react-markdown-editor-lite": "^1.3.4",
     "slugify": "^1.6.6"
   },
   "devDependencies": {
