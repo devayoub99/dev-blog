@@ -6,8 +6,8 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 
 export default async function Home() {
-  // const posts = await prisma.post.findMany();
-  const posts = dummyPosts;
+  const posts = await prisma.post.findMany();
+  // const posts = dummyPosts;
 
   console.log("posts", posts);
 
