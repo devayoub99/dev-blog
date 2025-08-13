@@ -1,6 +1,6 @@
-// app/login/page.jsx (Next.js 13+ App Router)
 "use client";
 
+import { loginAction } from "@/actions/auth-actions";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -11,6 +11,7 @@ export default function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Login attempt:", { email, password });
+    loginAction({ email, password });
     // Add your authentication logic here
   };
 
