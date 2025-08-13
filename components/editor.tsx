@@ -11,7 +11,7 @@ import { createPost } from "@/actions/post-actions";
 
 const mdParser = new MarkdownIt();
 
-export default function MarkdownEditor() {
+export default function Editor() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
