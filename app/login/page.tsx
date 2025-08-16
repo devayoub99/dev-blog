@@ -4,15 +4,30 @@ import { loginAction } from "@/actions/auth-actions";
 import Link from "next/link";
 import { useState } from "react";
 
+import { checkAuth } from "@/lib/checkAuth";
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
 
-  const handleSubmit = (e) => {
+  console.log("TOKEN", token);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Login attempt:", { email, password });
-    loginAction({ email, password });
+    const response = await loginAction({ email, password });
+
+    console.log("res", response);
+
+    setToken(response.token);
+
+    localStorage.setItem("token", response.token);
     // Add your authentication logic here
+  };
+
+  const sendDummyReq = async () => {
+    const res = await checkAuth(token);
   };
 
   return (
@@ -65,6 +80,9 @@ export default function LoginPage() {
             className="w-full py-2 text-white transition-colors bg-black rounded-none cursor-pointer curs cur font-tajawal hover:bg-neutral-800"
           >
             تسجيل الدخول
+          </button>
+          <button onClick={sendDummyReq} type="button">
+            Check auth
           </button>
         </form>
 

@@ -46,7 +46,20 @@ export const loginAction = async function (data) {
       name: user.name,
     };
 
-    // const token = jwt.sign(tokenPayload, );
+    const token = jwt.sign(tokenPayload, JWT_SECRET, {
+      expiresIn: JWT_EXPIRES_IN,
+    });
+    console.log("user", user);
+
+    const cookiesStore = cookies();
+
+    (await cookiesStore).set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+      path: "/",
+    });
 
     return {
       message: `Login successful. Welcome ${user.name}`,
