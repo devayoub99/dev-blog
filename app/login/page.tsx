@@ -2,33 +2,59 @@
 
 import { loginAction } from "@/actions/auth-actions";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { checkAuth } from "@/lib/checkAuth";
+import { validateTokenAndRedirect } from "@/lib/checkAuth";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  console.log("TOKEN", token);
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        setIsLoggingIn(true);
+        const test = await validateTokenAndRedirect();
+        console.log("test", test);
+      } catch (error) {
+        // If redirect happens, this catch won't execute
+        // If validation fails, we continue to show the login form
+        console.log("Token validation completed");
+      } finally {
+        setIsLoggingIn(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login attempt:", { email, password });
-    const response = await loginAction({ email, password });
 
-    console.log("res", response);
-
-    setToken(response.token);
-
-    localStorage.setItem("token", response.token);
-    // Add your authentication logic here
+    try {
+      setIsLoggingIn(true);
+      console.log("Login attempt:", { email, password });
+      const response = await loginAction({ email, password });
+      console.log("res", response);
+    } catch (error) {
+      console.error("Login error:", error);
+    } finally {
+      setIsLoggingIn(false);
+    }
   };
 
-  const sendDummyReq = async () => {
-    const res = await checkAuth(token);
-  };
+  if (isLoggingIn) {
+    return (
+      <div className="flex items-center justify-center min-h-screen px-4 text-black bg-white">
+        <div className="text-center">
+          {/* Loading Spinner */}
+          <div className="inline-block w-8 h-8 mb-4 border-2 border-black border-solid rounded-full border-t-transparent animate-spin"></div>
+          <p className="text-lg font-tajawal">جاري التحقق من تسجيل الدخول...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen px-4 text-black bg-white">
@@ -54,6 +80,7 @@ export default function LoginPage() {
               placeholder="you@example.com"
               className="w-full px-3 py-2 border border-black rounded-none font-tajawal focus:outline-none focus:ring-2 focus:ring-black"
               required
+              disabled={isLoggingIn}
             />
           </div>
 
@@ -72,17 +99,23 @@ export default function LoginPage() {
               placeholder="••••••••"
               className="w-full px-3 py-2 border border-black rounded-none focus:outline-none focus:ring-2 focus:ring-black"
               required
+              disabled={isLoggingIn}
             />
           </div>
 
           <button
             type="submit"
-            className="w-full py-2 text-white transition-colors bg-black rounded-none cursor-pointer curs cur font-tajawal hover:bg-neutral-800"
+            disabled={isLoggingIn}
+            className="flex items-center justify-center w-full py-2 text-white transition-colors bg-black rounded-none font-tajawal hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            تسجيل الدخول
-          </button>
-          <button onClick={sendDummyReq} type="button">
-            Check auth
+            {isLoggingIn ? (
+              <>
+                <div className="inline-block w-4 h-4 mr-2 border-2 border-white border-solid rounded-full border-t-transparent animate-spin"></div>
+                جاري تسجيل الدخول...
+              </>
+            ) : (
+              "تسجيل الدخول"
+            )}
           </button>
         </form>
 
@@ -94,8 +127,8 @@ export default function LoginPage() {
             </a>
           </p>
           <p className="font-tajawal">
-            ليس لديك حساب؟
-            <Link href="/signup" className="underlinehover:no-underline">
+            ليس لديك حساب؟{" "}
+            <Link href="/signup" className="underline hover:no-underline">
               إنشاء حساب
             </Link>
           </p>
