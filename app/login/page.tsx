@@ -1,6 +1,5 @@
 "use client";
 
-import { loginAction } from "@/actions/auth-actions";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -15,7 +14,8 @@ export default function LoginPage() {
     try {
       setIsLoggingIn(true);
       console.log("Login attempt:", { email, password });
-      const response = await loginAction({ email, password });
+      // const response = await loginAction({ email, password });
+      const response = {};
       console.log("res", response);
     } catch (error) {
       console.error("Login error:", error);
