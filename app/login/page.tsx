@@ -4,30 +4,10 @@ import { loginAction } from "@/actions/auth-actions";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { validateTokenAndRedirect } from "@/lib/checkAuth";
-
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        setIsLoggingIn(true);
-        const test = await validateTokenAndRedirect();
-        console.log("test", test);
-      } catch (error) {
-        // If redirect happens, this catch won't execute
-        // If validation fails, we continue to show the login form
-        console.log("Token validation completed");
-      } finally {
-        setIsLoggingIn(false);
-      }
-    };
-
-    checkAuth();
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
