@@ -53,7 +53,7 @@ export const loginAction = async function (data) {
 
     const cookiesStore = cookies();
 
-    (await cookiesStore).set("token", token, {
+    (await cookiesStore).set("accessToken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
