@@ -1,30 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useActionState, useState } from "react";
+import { loginAction } from "../../../lib/auth-actions";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // Use useActionState for proper server action handling
+  const [state, formAction, isPending] = useActionState(loginAction, null);
 
+  // Handle form submission with loading state
+  const handleSubmit = async (formData) => {
+    setIsLoading(true);
     try {
-      setIsLoggingIn(true);
-      console.log("Login attempt:", { email, password });
-      // const response = await loginAction({ email, password });
-      const response = {};
-      console.log("res", response);
+      await formAction(formData);
     } catch (error) {
+      // Handle redirect errors (expected when login succeeds)
+      if (error?.digest?.includes("NEXT_REDIRECT")) {
+        console.log("Login successful, redirecting...");
+        return;
+      }
       console.error("Login error:", error);
     } finally {
-      setIsLoggingIn(false);
+      setIsLoading(false);
     }
   };
 
-  if (isLoggingIn) {
+  const isSubmitting = isPending || isLoading;
+
+  if (isSubmitting && !state?.success === false) {
     return (
       <div className="flex items-center justify-center min-h-screen px-4 text-black bg-white">
         <div className="text-center">
@@ -43,8 +48,15 @@ export default function LoginPage() {
           أهلاً بعودتك
         </h1>
 
+        {/* Error Message */}
+        {state && !state.success && (
+          <div className="p-3 mb-4 text-sm text-red-700 border border-red-400 rounded-none bg-red-50 font-tajawal">
+            {state.message}
+          </div>
+        )}
+
         {/* Login Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form action={handleSubmit} className="space-y-4">
           <div>
             <label
               htmlFor="email"
@@ -54,13 +66,12 @@ export default function LoginPage() {
             </label>
             <input
               id="email"
+              name="email"
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
               className="w-full px-3 py-2 border border-black rounded-none font-tajawal focus:outline-none focus:ring-2 focus:ring-black"
               required
-              disabled={isLoggingIn}
+              disabled={isSubmitting}
             />
           </div>
 
@@ -73,22 +84,21 @@ export default function LoginPage() {
             </label>
             <input
               id="password"
+              name="password"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               className="w-full px-3 py-2 border border-black rounded-none focus:outline-none focus:ring-2 focus:ring-black"
               required
-              disabled={isLoggingIn}
+              disabled={isSubmitting}
             />
           </div>
 
           <button
             type="submit"
-            disabled={isLoggingIn}
+            disabled={isSubmitting}
             className="flex items-center justify-center w-full py-2 text-white transition-colors bg-black rounded-none font-tajawal hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoggingIn ? (
+            {isSubmitting ? (
               <>
                 <div className="inline-block w-4 h-4 mr-2 border-2 border-white border-solid rounded-full border-t-transparent animate-spin"></div>
                 جاري تسجيل الدخول...

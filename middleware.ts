@@ -25,12 +25,15 @@ export async function middleware(request) {
 
   // Check access token
   if (accessToken) {
+    console.log("MW accessToken", accessToken);
     try {
       await jwtVerify(accessToken, JWT_SECRET);
       isAuthenticated = true;
     } catch (error) {
       // Access token is invalid, check the refresh token
       if (refreshToken) {
+        console.log("MW refreshToken", refreshToken);
+
         try {
           const JWT_REFRESH_SECRET = new TextEncoder().encode(
             process.env.JWT_REFRESH_SECRET
@@ -39,6 +42,7 @@ export async function middleware(request) {
           isAuthenticated = true;
         } catch (refreshError) {
           // Both tokens invalid
+          console.log("Both tokens invalid!");
           isAuthenticated = false;
         }
       }

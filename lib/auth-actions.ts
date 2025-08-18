@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { hashPassword, verifyPassword } from "./password";
 import { generateTokens, verifyRefreshToken } from "./jwt";
 import { User } from "./auth";
-import { email, success, z } from "zod";
+import { z } from "zod";
 
 // Validation schemas
 const registerSchema = z.object({
@@ -127,6 +127,9 @@ export async function loginAction(prevState, formData) {
       email: user.email,
     });
 
+    console.log("accessToken", accessToken);
+    console.log("refreshToken", refreshToken);
+
     // Set cookies
     const cookiesStore = cookies();
 
@@ -144,8 +147,6 @@ export async function loginAction(prevState, formData) {
       maxAge: 7 * 24 * 60 * 60,
       path: "/",
     });
-
-    redirect("/");
   } catch (error) {
     if (error.name === "ZodError") {
       return {
@@ -160,6 +161,7 @@ export async function loginAction(prevState, formData) {
       message: "An unexpected error occurred",
     };
   }
+  redirect("/");
 }
 
 export async function logoutAction() {

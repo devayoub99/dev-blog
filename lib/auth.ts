@@ -35,6 +35,15 @@ export async function getUser() {
   }
 
   try {
+    const decoded = verifyAccessToken(accessToken);
+
+    const user = await User.findById(decoded.userId);
+
+    return {
+      id: user?.id,
+      name: user?.name,
+      email: user?.email,
+    };
   } catch (error) {
     // Try to refresh token
     const refreshToken = (await cookiesStore).get("refreshToken")?.value;
@@ -49,9 +58,8 @@ export async function getUser() {
 
       if (user) {
         // Generate new tokens
-        const { accessToken: newAccessToken, refreshToken: newRefreshToken };
-
-        generateTokens({ userId: user.id, email: user.email });
+        const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+          generateTokens({ userId: user.id, email: user.email });
 
         // Set new Cookies
         (await cookiesStore).set("accessToken", newAccessToken, {
