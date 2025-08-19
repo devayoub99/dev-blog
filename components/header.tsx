@@ -4,11 +4,14 @@ import SearchInput from "./searchInput";
 import Image from "next/image";
 import { getUser } from "@/lib/auth";
 import ProfileLink from "./profile-link";
+import { auth } from "@/auth";
 
 export default async function Header() {
   const user = await getUser();
 
   console.log("user", user);
+
+  const session = await auth();
 
   return (
     <header>
@@ -32,10 +35,12 @@ export default async function Header() {
               إضافة مقالة
             </Link>
             <ProfileLink
-              href={user?.id ? "/dashboard" : "/login"}
+              href={session?.user?.name ? "/dashboard" : "/login"}
+              // href={user?.id ? "/dashboard" : "/login"}
               className="px-4 py-2 border rounded-md font-tajawal"
             >
-              {user?.id ? "لوحة التحكم" : "تسجيل الدخول"}
+              {/* {user?.id ? "لوحة التحكم" : "تسجيل الدخول"} */}
+              {session?.user?.name ?? "تسجيل الدخول"}
             </ProfileLink>
           </div>
         </nav>

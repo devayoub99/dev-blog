@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useActionState, useState } from "react";
 import { loginAction } from "../../../lib/auth-actions";
+import OAuthButton from "@/components/o-auth-button";
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -107,6 +108,7 @@ export default function LoginPage() {
               "تسجيل الدخول"
             )}
           </button>
+          <OAuthButton />
         </form>
 
         {/* Extra Links */}

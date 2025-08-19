@@ -2,7 +2,6 @@ import Card from "@/components/card";
 import Container from "@/components/container";
 import PageTitle from "@/components/page-title";
 import prisma from "@/lib/prisma";
-import Link from "next/link";
 
 export default async function Home() {
   const posts = await prisma.post.findMany();
