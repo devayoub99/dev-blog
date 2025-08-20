@@ -2,15 +2,10 @@ import Link from "next/link";
 import Container from "./container";
 import SearchInput from "./searchInput";
 import Image from "next/image";
-import { getUser } from "@/lib/auth";
 import ProfileLink from "./profile-link";
 import { auth } from "@/auth";
 
 export default async function Header() {
-  const user = await getUser();
-
-  console.log("user", user);
-
   const session = await auth();
 
   return (
