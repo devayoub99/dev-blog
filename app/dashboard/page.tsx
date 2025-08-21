@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import PageTitle from "@/components/page-title";
+import SignoutButton from "@/components/signout-button";
 import Image from "next/image";
 
 export default async function DashboardPage() {
@@ -22,9 +23,10 @@ export default async function DashboardPage() {
               className="rounded-full"
             />
           )}
+          <SignoutButton />
         </div>
       ) : (
-        <div></div>
+        <p>You're not signed in</p>
       )}
     </div>
   );
