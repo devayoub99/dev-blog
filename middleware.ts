@@ -16,7 +16,6 @@ export default async function middleware(request: NextRequest) {
   );
 
   if (isProtected && !session) {
-    console.log("here");
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
