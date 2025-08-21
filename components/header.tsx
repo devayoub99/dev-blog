@@ -3,11 +3,8 @@ import Container from "./container";
 import SearchInput from "./searchInput";
 import Image from "next/image";
 import ProfileLink from "./profile-link";
-import { auth } from "@/auth";
 
 export default async function Header() {
-  const session = await auth();
-
   return (
     <header>
       <Container>
