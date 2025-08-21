@@ -30,12 +30,10 @@ export default async function Header() {
               إضافة مقالة
             </Link>
             <ProfileLink
-              href={session?.user?.name ? "/dashboard" : "/login"}
-              // href={user?.id ? "/dashboard" : "/login"}
+              href={"/dashboard"}
               className="px-4 py-2 border rounded-md font-tajawal"
             >
-              {/* {user?.id ? "لوحة التحكم" : "تسجيل الدخول"} */}
-              {session?.user?.name ?? "تسجيل الدخول"}
+              لوحة التحكم
             </ProfileLink>
           </div>
         </nav>
