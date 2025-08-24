@@ -27,7 +27,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
           if (!user) return null;
 
-          const isValid = verifyPassword(credentials.password, user.password);
+          const isValid = await verifyPassword(
+            credentials.password,
+            user.password
+          );
           if (!isValid) return null;
 
           return {
