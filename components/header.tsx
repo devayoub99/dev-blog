@@ -11,7 +11,7 @@ export default async function Header() {
         <nav className="flex items-center">
           <Link href="/">
             <Image
-              src="/logo-transparent.png"
+              src="/logo-transparent-2.png"
               width={80}
               height={80}
               alt="Logo"
