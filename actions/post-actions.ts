@@ -1,5 +1,6 @@
 "use server";
 
+import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import slugify from "slugify";
@@ -13,10 +14,20 @@ interface PostContent {
 }
 
 export async function createPost(title: string, content) {
+  const session = await auth();
+
+  if (!session?.user?.email) {
+    throw new Error("User not authenticated");
+  }
+
+  const author = await prisma.user.findUnique({
+    where: { email: session.user.email },
+  });
+
   const slug = slugify(title);
   try {
     const response = await prisma.post.create({
-      data: { title, slug, content, authorId: 1 },
+      data: { title, slug, content, authorId: author.id },
     });
 
     redirect("/");

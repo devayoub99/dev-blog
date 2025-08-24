@@ -34,7 +34,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           if (!isValid) return null;
 
           return {
-            id: user.id,
             name: user.name,
             email: user.email,
           };
