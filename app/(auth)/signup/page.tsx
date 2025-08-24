@@ -1,7 +1,6 @@
 // app/signup/page.jsx (Next.js 13+ App Router)
 "use client";
 
-import { registerAction } from "@/actions/auth-actions";
 import { useState } from "react";
 
 export default function SignupPage() {
@@ -13,7 +12,7 @@ export default function SignupPage() {
     e.preventDefault();
     console.log("Signup attempt:", { name, email, password });
     // Add your signup logic here
-    registerAction({ name, email, password });
+    // registerAction({ name, email, password });
   };
 
   return (

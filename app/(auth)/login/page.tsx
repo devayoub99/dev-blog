@@ -1,60 +1,26 @@
 "use client";
 
-import { loginAction } from "@/actions/auth-actions";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-
-import { validateTokenAndRedirect } from "@/lib/checkAuth";
+import { useState } from "react";
+import OAuthButton from "@/components/o-auth-button";
+import { login } from "@/actions/auth-actions";
 
 export default function LoginPage() {
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        setIsLoggingIn(true);
-        const test = await validateTokenAndRedirect();
-        console.log("test", test);
-      } catch (error) {
-        // If redirect happens, this catch won't execute
-        // If validation fails, we continue to show the login form
-        console.log("Token validation completed");
-      } finally {
-        setIsLoggingIn(false);
-      }
-    };
-
-    checkAuth();
-  }, []);
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
-      setIsLoggingIn(true);
-      console.log("Login attempt:", { email, password });
-      const response = await loginAction({ email, password });
-      console.log("res", response);
-    } catch (error) {
-      console.error("Login error:", error);
+      await login("credentials", { email, password });
+    } catch (err) {
+      console.error("Login failed", err);
     } finally {
-      setIsLoggingIn(false);
+      setIsLoading(false);
     }
   };
-
-  if (isLoggingIn) {
-    return (
-      <div className="flex items-center justify-center min-h-screen px-4 text-black bg-white">
-        <div className="text-center">
-          {/* Loading Spinner */}
-          <div className="inline-block w-8 h-8 mb-4 border-2 border-black border-solid rounded-full border-t-transparent animate-spin"></div>
-          <p className="text-lg font-tajawal">جاري التحقق من تسجيل الدخول...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="flex items-center justify-center min-h-screen px-4 text-black bg-white">
@@ -64,7 +30,7 @@ export default function LoginPage() {
         </h1>
 
         {/* Login Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="email"
@@ -74,16 +40,16 @@ export default function LoginPage() {
             </label>
             <input
               id="email"
+              name="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
               className="w-full px-3 py-2 border border-black rounded-none font-tajawal focus:outline-none focus:ring-2 focus:ring-black"
               required
-              disabled={isLoggingIn}
+              disabled={isLoading}
             />
           </div>
-
           <div>
             <label
               htmlFor="password"
@@ -93,22 +59,22 @@ export default function LoginPage() {
             </label>
             <input
               id="password"
-              type="password"
+              name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              type="password"
               placeholder="••••••••"
               className="w-full px-3 py-2 border border-black rounded-none focus:outline-none focus:ring-2 focus:ring-black"
               required
-              disabled={isLoggingIn}
+              disabled={isLoading}
             />
           </div>
-
           <button
             type="submit"
-            disabled={isLoggingIn}
+            disabled={isLoading}
             className="flex items-center justify-center w-full py-2 text-white transition-colors bg-black rounded-none font-tajawal hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoggingIn ? (
+            {isLoading ? (
               <>
                 <div className="inline-block w-4 h-4 mr-2 border-2 border-white border-solid rounded-full border-t-transparent animate-spin"></div>
                 جاري تسجيل الدخول...
@@ -117,6 +83,8 @@ export default function LoginPage() {
               "تسجيل الدخول"
             )}
           </button>
+          {/* Login WIth GitHub */}
+          <OAuthButton />
         </form>
 
         {/* Extra Links */}
