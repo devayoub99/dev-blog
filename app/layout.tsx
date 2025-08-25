@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/header";
 
 const tajawal = Tajawal({
+  subsets: ["arabic"],
   variable: "--font-tajawal",
   weight: ["200", "300", "400", "500", "700", "800", "900"],
 });
