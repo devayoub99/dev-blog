@@ -1,9 +1,9 @@
 import ReactMarkdown from "react-markdown";
+
 import Container from "./container";
+import CodeBlock from "./code-block";
 
 export default function PostContent({ post }) {
-  console.log("post", post.content);
-
   return (
     <Container>
       <article className="my-8 overflow-hidden bg-white border border-gray-100 shadow-sm rounded-2xl">
@@ -134,16 +134,11 @@ export default function PostContent({ post }) {
                 ),
 
                 // Code
-                code: ({ children, className }) => {
-                  const isInline = !className;
-                  return isInline ? (
-                    <code className="px-2 py-1 font-mono text-sm text-gray-800 bg-gray-100 border rounded">
+                code: ({ children, className, inline }) => {
+                  return (
+                    <CodeBlock className={className} inline={inline}>
                       {children}
-                    </code>
-                  ) : (
-                    <code className="block p-4 overflow-x-auto font-mono text-sm text-gray-100 bg-gray-900 border rounded-lg">
-                      {children}
-                    </code>
+                    </CodeBlock>
                   );
                 },
 
