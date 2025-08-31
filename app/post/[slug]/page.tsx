@@ -3,8 +3,8 @@ import PostContent from "@/components/md-viewer";
 import { notFound } from "next/navigation";
 
 export default async function Post({ params, searchParams }) {
-  const { slug } = await params;
-  const { id } = await searchParams;
+  const { slug } = params;
+  const { id } = searchParams;
 
   if (!id) {
     notFound();
@@ -15,8 +15,6 @@ export default async function Post({ params, searchParams }) {
   if (!data) {
     notFound();
   }
-
-  const { title, content, published, author } = data;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">

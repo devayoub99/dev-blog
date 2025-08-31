@@ -8,8 +8,8 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    // e.preventDefault();
     console.log("Signup attempt:", { name, email, password });
     // Add your signup logic here
     // registerAction({ name, email, password });

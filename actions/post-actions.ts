@@ -13,7 +13,7 @@ interface PostContent {
   };
 }
 
-export async function createPost(title: string, content) {
+export async function createPost(title: string, content: string) {
   const session = await auth();
 
   if (!session?.user?.email) {
@@ -24,6 +24,10 @@ export async function createPost(title: string, content) {
     where: { email: session.user.email },
   });
 
+  if (!author) {
+    throw new Error("Author not found");
+  }
+
   const slug = slugify(title);
   try {
     const response = await prisma.post.create({
@@ -32,7 +36,11 @@ export async function createPost(title: string, content) {
 
     redirect("/");
   } catch (error) {
-    console.error(error.message);
+    if (error instanceof Error) {
+      console.error(error.message);
+    } else {
+      console.error(error);
+    }
   }
 }
 
@@ -56,6 +64,10 @@ export async function getPost(id: number) {
     console.log(response);
     return response;
   } catch (error) {
-    console.error(error.message);
+    if (error instanceof Error) {
+      console.error(error.message);
+    } else {
+      console.error(error);
+    }
   }
 }

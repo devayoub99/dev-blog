@@ -17,8 +17,8 @@ export default async function Home() {
                 key={post.id}
                 href={`/post/${post.slug}?id=${post.id}`}
                 title={post.title}
-                content={post.content || post.excerpt || ""}
-                imageUrl={post.imageUrl}
+                content={post.content || ""}
+                // imageUrl={post.imageUrl}
               />
             ))}
           </div>

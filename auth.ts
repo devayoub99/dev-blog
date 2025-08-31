@@ -11,26 +11,24 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
-        // Only import Prisma when we're actually running server-side
-        if (typeof window !== "undefined") return null;
-
+      async authorize(credentials, req) {
+        // Make sure credentials exist
         if (!credentials?.email || !credentials?.password) return null;
+
+        const email = String(credentials.email);
+        const password = String(credentials.password);
 
         try {
           const { default: prisma } = await import("./lib/prisma");
           const { verifyPassword } = await import("./lib/password");
 
           const user = await prisma.user.findUnique({
-            where: { email: credentials.email },
+            where: { email },
           });
 
           if (!user) return null;
 
-          const isValid = await verifyPassword(
-            credentials.password,
-            user.password
-          );
+          const isValid = await verifyPassword(password, user.password);
           if (!isValid) return null;
 
           return {

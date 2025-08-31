@@ -18,7 +18,7 @@ export default async function DashboardPage() {
               src={session.user.image}
               width={52}
               height={52}
-              alt={session.user.name}
+              alt={session.user.name ?? "User avatar"}
               className="rounded-full"
             />
           )}

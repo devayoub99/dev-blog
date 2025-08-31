@@ -134,9 +134,9 @@ export default function PostContent({ post }) {
                 ),
 
                 // Code
-                code: ({ children, className, inline }) => {
+                code: ({ children, className }) => {
                   return (
-                    <CodeBlock className={className} inline={inline}>
+                    <CodeBlock className={className} inline={""}>
                       {children}
                     </CodeBlock>
                   );

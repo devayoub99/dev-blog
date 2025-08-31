@@ -94,7 +94,7 @@ export default function Editor() {
         .map((tag) => tag.trim())
         .filter((tag) => tag.length > 0);
 
-      await createPost(title, content, excerpt, tagArray);
+      await createPost(title, content);
       setSaveStatus("saved");
 
       // Clear draft after successful save
