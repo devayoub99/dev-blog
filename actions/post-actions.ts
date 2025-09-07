@@ -36,6 +36,7 @@ export async function createPost(title: string, content: string) {
     });
 
     revalidatePath("/");
+    revalidatePath("/posts");
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
