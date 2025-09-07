@@ -11,8 +11,10 @@ export default async function DashboardPage() {
       <PageTitle title="لوحة التحكم" />
       {session?.user ? (
         <div>
-          <h2>Welcome, {session.user.name}</h2>
-          <p>Email {session.user.email}</p>
+          <h2 className="font-tajawal">أهلاً وسهلاً بك {session.user.name}</h2>
+          <p className="font-tajawal">بريدك الإلكتروني: {session.user.email}</p>
+            
+          
           {session.user?.image && (
             <Image
               src={session.user.image}
