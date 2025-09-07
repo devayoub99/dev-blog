@@ -35,8 +35,7 @@ export async function createPost(title: string, content: string) {
       data: { title, slug, content, authorId: author.id },
     });
 
-    revalidatePath("/", "layout");
-    redirect("/");
+    revalidatePath("/");
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
