@@ -2,6 +2,7 @@
 
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import slugify from "slugify";
 
@@ -34,6 +35,7 @@ export async function createPost(title: string, content: string) {
       data: { title, slug, content, authorId: author.id },
     });
 
+    revalidatePath("/");
     redirect("/");
   } catch (error) {
     if (error instanceof Error) {
