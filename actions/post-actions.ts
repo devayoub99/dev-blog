@@ -35,7 +35,7 @@ export async function createPost(title: string, content: string) {
       data: { title, slug, content, authorId: author.id },
     });
 
-    revalidatePath("/");
+    revalidatePath("/", "layout");
     redirect("/");
   } catch (error) {
     if (error instanceof Error) {
