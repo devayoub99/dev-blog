@@ -1,5 +1,6 @@
 import Container from "@/components/container";
 import PageTitle from "@/components/page-title";
+import DeletePostButton from "@/components/post/delete-post-button";
 import prisma from "@/lib/prisma";
 
 export default async function Home() {
@@ -16,12 +17,15 @@ export default async function Home() {
                 key={post.id}
                 className="p-6 transition-shadow duration-200 bg-white rounded-lg shadow-sm hover:shadow-md"
               >
-                <a
-                  href={`/post/${post.slug}?id=${post.id}`}
-                  className="block text-lg font-medium text-gray-800 transition-colors duration-200 hover:text-blue-600"
-                >
-                  {post.title}
-                </a>
+                <div className="flex items-center justify-between">
+                  <a
+                    href={`/post/${post.slug}?id=${post.id}`}
+                    className="flex-1 text-lg font-medium text-gray-800 transition-colors duration-200 hover:text-blue-600"
+                  >
+                    {post.title}
+                  </a>
+                  <DeletePostButton postId={post.id} />
+                </div>
               </div>
             ))}
           </div>

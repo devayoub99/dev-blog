@@ -3,7 +3,6 @@
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import slugify from "slugify";
 
 interface PostContent {
@@ -36,7 +35,7 @@ export async function createPost(title: string, content: string) {
     });
 
     revalidatePath("/");
-    revalidatePath("/posts");
+    // revalidatePath("/posts");
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
@@ -65,6 +64,24 @@ export async function getPost(id: number) {
 
     console.log(response);
     return response;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+export async function deletePost(id: number) {
+  try {
+    const response = await prisma.post.delete({
+      where: { id },
+    });
+
+    console.log(response);
+
+    revalidatePath("/");
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
