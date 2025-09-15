@@ -26,7 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={`${tajawal.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${tajawal.variable} ${geistMono.variable} flex flex-col min-h-screen antialiased`}
+      >
         <Header />
         {children}
       </body>

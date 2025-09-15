@@ -96,7 +96,7 @@ export default function LoginPage() {
           </p>
           <p className="font-tajawal">
             ليس لديك حساب؟{" "}
-            <Link href="/signup" className="underline hover:no-underline">
+            <Link href="/register" className="underline hover:no-underline">
               إنشاء حساب
             </Link>
           </p>

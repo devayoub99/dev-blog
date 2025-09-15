@@ -1,18 +1,23 @@
-// app/signup/page.jsx (Next.js 13+ App Router)
 "use client";
 
+import { register } from "@/actions/auth-actions";
 import { useState } from "react";
 
-export default function SignupPage() {
+export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // e.preventDefault();
-    console.log("Signup attempt:", { name, email, password });
-    // Add your signup logic here
-    // registerAction({ name, email, password });
+    console.log("register attempt:", { name, email, password });
+    // Add your register logic here
+
+    try {
+      await register({ name, email, password });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
