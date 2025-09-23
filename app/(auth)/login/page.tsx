@@ -23,7 +23,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 text-black bg-white">
+    <div className="flex items-center justify-center flex-1 px-4 text-black bg-white">
       <div className="w-full max-w-sm">
         <h1 className="mb-6 text-3xl font-semibold tracking-tight font-tajawal">
           أهلاً بعودتك
