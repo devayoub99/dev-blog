@@ -2,6 +2,7 @@ import Card from "@/components/card";
 import Container from "@/components/container";
 import PageTitle from "@/components/page-title";
 import prisma from "@/lib/prisma";
+import Image from "next/image";
 
 export default async function Home() {
   const posts = await prisma.post.findMany();
@@ -18,7 +19,7 @@ export default async function Home() {
                 href={`/post/${post.slug}?id=${post.id}`}
                 title={post.title}
                 content={post.content || ""}
-                // imageUrl={post.imageUrl}
+                type="Article"
               />
             ))}
           </div>
@@ -26,10 +27,10 @@ export default async function Home() {
           {posts.length === 0 && (
             <div className="py-16 text-center">
               <div className="mb-4 text-6xl text-gray-400">📝</div>
-              <h3 className="mb-2 text-xl font-medium text-gray-600 font-tajawal">
+              <h3 className="mb-2 text-xl font-medium text-gray-600 ">
                 لا توجد مقالات حالياً
               </h3>
-              <p className="text-gray-500 font-tajawal">
+              <p className="text-gray-500">
                 تابعونا لرؤية آخر المقالات والتحديثات
               </p>
             </div>

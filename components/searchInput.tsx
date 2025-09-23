@@ -3,10 +3,10 @@ export default function SearchInput() {
     <div className="flex justify-end flex-1 gap-2">
       <input
         type="search"
-        className="p-2 border-gray-400 rounded-md border-1 font-tajawal md:min-w-60 lg:min-w-80"
+        className="p-2 border-gray-400 rounded-md border-1 md:min-w-60 lg:min-w-80"
         placeholder="بحث عن مقالة..."
       />
-      <button className="p-2 border-gray-400 rounded-md cursor-pointer border-1 font-tajawal">
+      <button className="p-2 border-gray-400 rounded-md cursor-pointer border-1">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

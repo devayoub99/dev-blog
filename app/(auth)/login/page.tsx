@@ -25,17 +25,14 @@ export default function LoginPage() {
   return (
     <div className="flex items-center justify-center flex-1 px-4 text-black bg-white">
       <div className="w-full max-w-sm">
-        <h1 className="mb-6 text-3xl font-semibold tracking-tight font-tajawal">
+        <h1 className="mb-6 text-3xl font-semibold tracking-tight">
           أهلاً بعودتك
         </h1>
 
         {/* Login Form */}
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label
-              htmlFor="email"
-              className="block mb-1 text-sm font-medium font-tajawal"
-            >
+            <label htmlFor="email" className="block mb-1 text-sm font-medium">
               البريد الإلكتروني
             </label>
             <input
@@ -45,7 +42,7 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full px-3 py-2 border border-black rounded-none font-tajawal focus:outline-none focus:ring-2 focus:ring-black"
+              className="w-full px-3 py-2 border border-black rounded-none focus:outline-none focus:ring-2 focus:ring-black"
               required
               disabled={isLoading}
             />
@@ -53,7 +50,7 @@ export default function LoginPage() {
           <div>
             <label
               htmlFor="password"
-              className="block mb-1 text-sm font-medium font-tajawal"
+              className="block mb-1 text-sm font-medium"
             >
               كلمة المرور
             </label>
@@ -72,7 +69,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="flex items-center justify-center w-full py-2 text-white transition-colors bg-black rounded-none font-tajawal hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center justify-center w-full py-2 text-white transition-colors bg-black rounded-none hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <>
@@ -84,17 +81,17 @@ export default function LoginPage() {
             )}
           </button>
           {/* Login WIth GitHub */}
-          <OAuthButton />
+          {/* <OAuthButton /> */}
         </form>
 
         {/* Extra Links */}
         <div className="mt-6 space-y-2 text-sm">
           <p>
-            <a href="#" className="underline font-tajawal hover:no-underline">
+            <a href="#" className="underline hover:no-underline">
               هل نسيت كلمة المرور؟
             </a>
           </p>
-          <p className="font-tajawal">
+          <p>
             ليس لديك حساب؟{" "}
             <Link href="/register" className="underline hover:no-underline">
               إنشاء حساب

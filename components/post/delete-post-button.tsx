@@ -17,10 +17,7 @@ export default function DeletePostButton({ postId }) {
 
   return (
     <>
-      <button
-        onClick={handleDeletePost}
-        className="cursor-pointer font-tajawal"
-      >
+      <button onClick={handleDeletePost} className="cursor-pointer">
         حذف
       </button>
       <Modal

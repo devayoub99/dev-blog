@@ -21,7 +21,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex items-center justify-center flex-1 px-4 text-black bg-white font-tajawal">
+    <div className="flex items-center justify-center flex-1 px-4 text-black bg-white">
       <div className="w-full max-w-sm">
         {/* Title */}
         <h1 className="mb-6 text-3xl font-semibold tracking-tight text-right">

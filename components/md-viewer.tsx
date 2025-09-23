@@ -9,7 +9,7 @@ export default function PostContent({ post }) {
       <article className="my-8 overflow-hidden bg-white border border-gray-100 shadow-sm rounded-2xl">
         {/* Header Section */}
         <header className="p-8 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
-          <h1 className="mb-4 text-4xl font-bold leading-tight text-center text-gray-900 font-tajawal">
+          <h1 className="mb-4 text-4xl font-bold leading-tight text-center text-gray-900 ">
             {post.title}
           </h1>
 
@@ -52,39 +52,39 @@ export default function PostContent({ post }) {
         {/* Content Section */}
         <div className="p-8">
           <div
-            className="prose prose-lg text-right markdown-content max-w-none font-tajawal"
+            className="prose prose-lg text-right markdown-content max-w-none "
             dir="rtl"
           >
             <ReactMarkdown
               components={{
                 // Headings
                 h1: ({ children }) => (
-                  <h1 className="pb-3 mt-8 mb-6 text-3xl font-bold text-gray-900 border-b-2 border-blue-100 font-tajawal">
+                  <h1 className="pb-3 mt-8 mb-6 text-3xl font-bold text-gray-900 border-b-2 border-blue-100 ">
                     {children}
                   </h1>
                 ),
                 h2: ({ children }) => (
-                  <h2 className="mt-8 mb-5 text-2xl font-bold text-gray-800 font-tajawal">
+                  <h2 className="mt-8 mb-5 text-2xl font-bold text-gray-800 ">
                     {children}
                   </h2>
                 ),
                 h3: ({ children }) => (
-                  <h3 className="mt-6 mb-4 text-xl font-semibold text-gray-800 font-tajawal">
+                  <h3 className="mt-6 mb-4 text-xl font-semibold text-gray-800 ">
                     {children}
                   </h3>
                 ),
                 h4: ({ children }) => (
-                  <h4 className="mt-5 mb-3 text-lg font-semibold text-gray-700 font-tajawal">
+                  <h4 className="mt-5 mb-3 text-lg font-semibold text-gray-700 ">
                     {children}
                   </h4>
                 ),
                 h5: ({ children }) => (
-                  <h5 className="mt-4 mb-3 text-base font-semibold text-gray-700 font-tajawal">
+                  <h5 className="mt-4 mb-3 text-base font-semibold text-gray-700">
                     {children}
                   </h5>
                 ),
                 h6: ({ children }) => (
-                  <h6 className="mt-3 mb-2 text-sm font-semibold tracking-wide text-gray-600 uppercase font-tajawal">
+                  <h6 className="mt-3 mb-2 text-sm font-semibold tracking-wide text-gray-600 uppercase">
                     {children}
                   </h6>
                 ),

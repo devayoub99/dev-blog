@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import Card from "@/components/card";
 import PageTitle from "@/components/page-title";
 import SignoutButton from "@/components/signout-button";
 import Image from "next/image";
@@ -9,10 +10,19 @@ export default async function DashboardPage() {
   return (
     <div>
       <PageTitle title="لوحة التحكم" />
-      {session?.user ? (
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-7">
+        <Card
+          href="/dashboard/profile"
+          title="الملف الشخصي"
+          // imageUrl="/user.svg"
+          type="Transparent"
+        />
+      </div>
+      <SignoutButton />
+      {/* {session?.user ? (
         <div>
-          <h2 className="font-tajawal">أهلاً وسهلاً بك {session.user.name}</h2>
-          <p className="font-tajawal">بريدك الإلكتروني: {session.user.email}</p>
+          <h2>أهلاً وسهلاً بك {session.user.name}</h2>
+          <p>بريدك الإلكتروني: {session.user.email}</p>
             
           
           {session.user?.image && (
@@ -28,7 +38,7 @@ export default async function DashboardPage() {
         </div>
       ) : (
         <p>You're not signed in</p>
-      )}
+      )} */}
     </div>
   );
 }

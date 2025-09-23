@@ -194,9 +194,7 @@ export default function Editor() {
     <div className="max-w-6xl p-6 mx-auto bg-white shadow-lg rounded-2xl">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="mb-2 text-3xl font-bold text-gray-900 font-tajawal">
-          محرر المقالات
-        </h1>
+        <h1 className="mb-2 text-3xl font-bold text-gray-900">محرر المقالات</h1>
         <div className="flex items-center gap-4 text-sm text-gray-600">
           <span>عدد الكلمات: {wordCount}</span>
           <span>•</span>
@@ -216,7 +214,7 @@ export default function Editor() {
         <div className="lg:col-span-2">
           <label
             htmlFor="title"
-            className="block mb-2 text-sm font-medium text-gray-700 font-tajawal"
+            className="block mb-2 text-sm font-medium text-gray-700"
           >
             عنوان المقالة *
           </label>
@@ -225,7 +223,7 @@ export default function Editor() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="اكتب عنوان جذاب لمقالتك..."
-            className="w-full px-4 py-3 transition-all duration-200 border border-gray-300 rounded-lg font-tajawal focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-3 transition-all duration-200 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             required
           />
         </div>
@@ -234,7 +232,7 @@ export default function Editor() {
         <div>
           <label
             htmlFor="tags"
-            className="block mb-2 text-sm font-medium text-gray-700 font-tajawal"
+            className="block mb-2 text-sm font-medium text-gray-700"
           >
             العلامات (اختياري)
           </label>
@@ -243,7 +241,7 @@ export default function Editor() {
             value={tags}
             onChange={(e) => setTags(e.target.value)}
             placeholder="JavaScript, React, تطوير..."
-            className="w-full px-4 py-3 transition-all duration-200 border border-gray-300 rounded-lg font-tajawal focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-3 transition-all duration-200 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
           <p className="mt-1 text-xs text-gray-500">افصل بين العلامات بفاصلة</p>
         </div>
@@ -253,7 +251,7 @@ export default function Editor() {
       <div className="mb-6">
         <label
           htmlFor="excerpt"
-          className="block mb-2 text-sm font-medium text-gray-700 font-tajawal"
+          className="block mb-2 text-sm font-medium text-gray-700 "
         >
           نبذة مختصرة (اختياري)
         </label>
@@ -263,13 +261,13 @@ export default function Editor() {
           onChange={(e) => setExcerpt(e.target.value)}
           placeholder="اكتب نبذة مختصرة تظهر في بطاقة المقالة..."
           rows={3}
-          className="w-full px-4 py-3 transition-all duration-200 border border-gray-300 rounded-lg font-tajawal focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical"
+          className="w-full px-4 py-3 transition-all duration-200 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical"
         />
       </div>
 
       {/* Content Editor */}
       <div className="mb-6">
-        <label className="block mb-2 text-sm font-medium text-gray-700 font-tajawal">
+        <label className="block mb-2 text-sm font-medium text-gray-700 ">
           محتوى المقالة *
         </label>
         <div className="overflow-hidden border border-gray-300 rounded-lg">
@@ -313,14 +311,14 @@ export default function Editor() {
           <button
             onClick={handleSave}
             disabled={isSaving || !title.trim() || !content.trim()}
-            className={`px-6 py-3 rounded-lg font-medium font-tajawal transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${getSaveButtonStyle()}`}
+            className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${getSaveButtonStyle()}`}
           >
             {getSaveButtonText()}
           </button>
 
           <button
             onClick={handleClearDraft}
-            className="px-4 py-3 text-gray-700 transition-colors duration-200 border border-gray-300 rounded-lg hover:bg-gray-50 font-tajawal"
+            className="px-4 py-3 text-gray-700 transition-colors duration-200 border border-gray-300 rounded-lg hover:bg-gray-50"
           >
             مسح المسودة
           </button>
@@ -334,10 +332,8 @@ export default function Editor() {
 
       {/* Quick Tips */}
       <div className="p-4 mt-6 border border-blue-100 rounded-lg bg-blue-50">
-        <h3 className="mb-2 font-medium text-blue-900 font-tajawal">
-          💡 نصائح سريعة:
-        </h3>
-        <ul className="space-y-1 text-sm text-blue-800 font-tajawal">
+        <h3 className="mb-2 font-medium text-blue-900 ">💡 نصائح سريعة:</h3>
+        <ul className="space-y-1 text-sm text-blue-800 ">
           <li>• استخدم # للعناوين (# عنوان رئيسي، ## عنوان فرعي)</li>
           <li>• **نص عريض** أو *نص مائل*</li>
           <li>• استخدم ` للكود المضمن أو ``` لكتل الكود</li>

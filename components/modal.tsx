@@ -31,9 +31,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
       <div className="relative w-full max-w-lg overflow-hidden transition-all duration-300 transform scale-100 bg-white shadow-2xl rounded-2xl ring-1 ring-black/5">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-          <h2 className="text-xl font-semibold text-gray-900 font-tajawal">
-            {title}
-          </h2>
+          <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
           <button
             onClick={onClose}
             className="p-2 text-gray-400 transition-colors rounded-lg hover:bg-gray-100 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
