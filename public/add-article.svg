@@ -1,0 +1,14 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  viewBox="0 0 24 24"
+  strokeWidth="1.5"
+  stroke="currentColor"
+  className="size-6"
+>
+  <path
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    d="M12 4.5H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5A2.25 2.25 0 0 0 6.75 19.5h10.5A2.25 2.25 0 0 0 19.5 17.25V12M9 9h3m-3 3h1.5M19.5 8.25v3m0 0v3m0-3h3m-3 0h-3"
+  />
+</svg>

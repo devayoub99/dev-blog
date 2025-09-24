@@ -27,19 +27,15 @@ export default function Card({
   const cardBg =
     type === "Transparent" ? "" : "bg-gradient-to-br from-gray-100 to-gray-200";
 
+  const cardPadding = type === "Transparent" ? "p-4" : "p-6";
+
   return (
     <Link href={href} className="block group">
       <article className="overflow-hidden transition-all duration-300 transform bg-white border border-gray-100 shadow-sm rounded-2xl hover:shadow-xl hover:border-gray-200 hover:-translate-y-1">
         {/* Image Container */}
         <div className={`relative aspect-[4/3] overflow-hidden ${cardBg}`}>
           {CardImage ? (
-            // Clone the element to add positioning classes and alt prop
-            cloneElement(CardImage, {
-              className: `object-cover w-full h-full ${
-                CardImage.props.className || ""
-              }`,
-              alt: CardImage.props.alt || alt,
-            })
+            <div className="relative w-full h-full">{CardImage}</div>
           ) : (
             // Fallback placeholder when no image provided
             <div className="flex items-center justify-center w-full h-full text-gray-400">
@@ -70,9 +66,9 @@ export default function Card({
         </div>
 
         {/* Content Container */}
-        <div className="p-6">
+        <div className={cardPadding}>
           {/* Title */}
-          <h3 className="mb-3 text-xl font-bold leading-tight text-gray-900 transition-colors duration-200 group-hover:text-blue-600 line-clamp-2">
+          <h3 className="mb-3 text-xl font-bold text-gray-900 transition-colors duration-200 group-hover:text-blue-600 line-clamp-2">
             {title}
           </h3>
 
