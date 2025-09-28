@@ -10,14 +10,80 @@ datasource db {
 }
 
 model User {
-  id          Int     @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String?
-  email       String  @unique
+  email       String   @unique
   password    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  posts Post[]
+  
+  // Profile Information
+  title       String?  // Job title/role
+  bio         String?  @db.Text // Using Text for longer content
+  location    String?
+  website     String?
+  avatar      String?  // URL to avatar image
+  coverImage  String?  // URL to cover image
+  
+  // Social Links - as separate fields for better indexing and queries
+  githubUsername    String?
+  twitterUsername   String?
+  linkedinUsername  String?
+  
+  // Statistics - denormalized for performance
+  postsCount     Int @default(0)
+  followersCount Int @default(0)
+  followingCount Int @default(0)
+  
+  // Relationships
+  posts       Post[]
+  followers   Follow[] @relation("UserFollowers")
+  following   Follow[] @relation("UserFollowing")
+  activities  Activity[]
+  
+  // Indexes for performance
+  @@index([email])
+  @@index([name])
+  @@index([createdAt])
 }
+
+// Separate Follow model for many-to-many relationship
+model Follow {
+  id          Int      @id @default(autoincrement())
+  followerId  Int
+  followingId Int
+  createdAt   DateTime @default(now())
+  
+  follower    User @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade)
+  
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
+}
+
+// Activity tracking for recent activity section
+model Activity {
+  id        Int           @id @default(autoincrement())
+  userId    Int
+  type      ActivityType
+  title     String
+  metadata  Json?         // Store additional activity data as JSON
+  createdAt DateTime      @default(now())
+  
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, createdAt])
+}
+
+enum ActivityType {
+  POST_PUBLISHED
+  PROFILE_UPDATED
+  COMMUNITY_JOINED
+  COMMENT_CREATED
+  PROJECT_CREATED
+}
+
 
 model Post {
   id        Int     @id @default(autoincrement())
@@ -29,4 +95,7 @@ model Post {
   updatedAt DateTime @updatedAt
   authorId  Int
   author    User    @relation(fields: [authorId], references: [id])
+
+  @@index([authorId])
+  @@index([published, createdAt])
 }
