@@ -1,97 +1,31 @@
-"use client";
+// app/profile/page.js - Server Component (NO "use client")
+import { getUserProfile } from "@/actions/user-actions";
+import ProfilePageClient from "@/components/profile/profile-page-client";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-import { useState } from "react";
+export default async function ProfilePage() {
+  // Get user session (server-side)
 
-import ProfileCoverImage from "@/components/profile/profile-cover-image";
-import ProfileHeader from "@/components/profile/profile-header";
-import ProfileStats from "@/components/profile/profile-stats";
-import ProfileBio from "@/components/profile/profile-bio";
-import ProfileContactInfo from "@/components/profile/profile-contact-info";
-import ProfileSocialLinks from "@/components/profile/profile-social-links";
-import ProfileRecentActivity from "@/components/profile/profile-recent-activity";
+  const session = await auth();
+  console.log("session", session);
+  if (!session?.user?.email) {
+    // Redirect to login if not authenticated
+    redirect("/login");
+  }
 
-export default function ProfilePage() {
-  const [isEditing, setIsEditing] = useState(false);
-  const [profile, setProfile] = useState({
-    name: "Alex Chen",
-    title: "Full Stack Developer & Technical Writer",
-    location: "San Francisco, CA",
-    email: "alex@example.com",
-    website: "alexchen.dev",
-    bio: "Passionate about creating beautiful web experiences and sharing knowledge through writing. I love exploring new technologies and building tools that make developers' lives easier.",
-    avatar:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
-    coverImage:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=400&fit=crop",
-    social: {
-      github: "alexchen",
-      twitter: "alexchen_dev",
-      linkedin: "alex-chen-dev",
-    },
-    stats: {
-      posts: 42,
-      followers: 1.2,
-      following: 384,
-    },
-  });
+  // Fetch profile data (server-side)
+  const profileData = await getUserProfile(session?.user?.email);
 
-  const handleProfileUpdate = (field, value) => {
-    setProfile((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
-
-  const handleSocialUpdate = (platform, value) => {
-    setProfile((prev) => ({
-      ...prev,
-      social: {
-        ...prev.social,
-        [platform]: value,
-      },
-    }));
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <ProfileCoverImage
-        coverImage={profile.coverImage}
-        isEditing={isEditing}
-      />
-
-      <div className="max-w-4xl px-4 mx-auto sm:px-6 lg:px-8">
-        <div className="relative -mt-24 overflow-hidden bg-white border border-gray-100 shadow-sm rounded-xl">
-          <ProfileHeader
-            profile={profile}
-            isEditing={isEditing}
-            onProfileUpdate={handleProfileUpdate}
-            onToggleEdit={() => setIsEditing(!isEditing)}
-          />
-
-          <ProfileStats stats={profile.stats} />
-
-          <div className="px-6 py-6 space-y-6">
-            <ProfileBio
-              bio={profile.bio}
-              isEditing={isEditing}
-              onBioUpdate={(value) => handleProfileUpdate("bio", value)}
-            />
-
-            <ProfileContactInfo
-              email={profile.email}
-              website={profile.website}
-            />
-
-            <ProfileSocialLinks
-              social={profile.social}
-              isEditing={isEditing}
-              onSocialUpdate={handleSocialUpdate}
-            />
-          </div>
-        </div>
-
-        <ProfileRecentActivity />
+  if (!profileData) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <p className="text-gray-600">Profile not found</p>
       </div>
-    </div>
-  );
+    );
+  }
+
+  // Pass data to Client Component
+  return <ProfilePageClient initialProfile={profileData} />;
+  return <h2>{JSON.stringify(profileData)}</h2>;
 }
