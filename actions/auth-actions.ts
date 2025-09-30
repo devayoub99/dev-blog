@@ -35,13 +35,35 @@ export const register = async (data: {
     // Hash the password
     const hashedPassword = await hashPassword(data.password);
 
-    // Create the user
-    const user = await prisma.user.create({
-      data: {
-        name: data.name,
-        email: data.email,
-        password: hashedPassword,
-      },
+    // Create the user and welcome activity in a transaction
+    const user = await prisma.$transaction(async (tx) => {
+      // 1. Create the user
+      const newUser = await tx.user.create({
+        data: {
+          name: data.name,
+          email: data.email,
+          password: hashedPassword,
+          // Initialize stats
+          postsCount: 0,
+          followersCount: 0,
+          followingCount: 0,
+        },
+      });
+
+      // 2. Create welcome activity
+      await tx.activity.create({
+        data: {
+          userId: newUser.id,
+          type: "COMMUNITY_JOINED",
+          title: "Joined the community",
+          metadata: {
+            registrationDate: new Date().toISOString(),
+            source: "registration",
+          },
+        },
+      });
+
+      return newUser;
     });
 
     // Automatically sign in the user after registration
@@ -51,7 +73,14 @@ export const register = async (data: {
       redirectTo: "/dashboard",
     });
 
-    return { success: true, user: { id: user.id, name: user.name, email: user.email } };
+    return {
+      success: true,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
+    };
   } catch (error) {
     console.error("Registration error:", error);
     throw error;

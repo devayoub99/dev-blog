@@ -6,25 +6,31 @@ export async function getUserProfile(email: string) {
   const data = await prisma.user.findUnique({
     where: { email },
     select: {
-      // ... specific fields only
-      coverImage: true,
-      bio: true,
-      // stats
-      postsCount: true,
-      followersCount: true,
-      followingCount: true,
+      name: true,
       email: true,
+
+      // Profile info
+      title: true,
+      bio: true,
+      location: true,
       website: true,
-      // Social
+      avatar: true,
+      coverImage: true,
+
+      // Social Links
       githubUsername: true,
       twitterUsername: true,
       linkedinUsername: true,
-      // activities: {
-      //   take: 10,
-      //   orderBy: { createdAt: "desc" }, // Most recent first
-      //   select: {
-      //   },
-      // },
+
+      // Statistics
+      postsCount: true,
+      followersCount: true,
+      followingCount: true,
+
+      activities: {
+        take: 10,
+        orderBy: { createdAt: "desc" }, // Most recent first
+      },
     },
   });
 

@@ -1,5 +1,4 @@
 export default function ProfileBio({ bio, isEditing, onBioUpdate }) {
-  console.log("bio", bio);
   return (
     <div>
       <h3 className="mb-3 text-sm font-semibold tracking-wide text-gray-900 uppercase">

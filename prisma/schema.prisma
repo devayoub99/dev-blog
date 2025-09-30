@@ -65,12 +65,12 @@ model Follow {
 // Activity tracking for recent activity section
 model Activity {
   id        Int           @id @default(autoincrement())
-  userId    Int
   type      ActivityType
   title     String
   metadata  Json?         // Store additional activity data as JSON
   createdAt DateTime      @default(now())
   
+  userId    Int
   user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   @@index([userId, createdAt])

@@ -1,16 +1,12 @@
-// app/profile/page.js - Server Component (NO "use client")
 import { getUserProfile } from "@/actions/user-actions";
 import ProfilePageClient from "@/components/profile/profile-page-client";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
 export default async function ProfilePage() {
-  // Get user session (server-side)
-
   const session = await auth();
-  console.log("session", session);
+
   if (!session?.user?.email) {
-    // Redirect to login if not authenticated
     redirect("/login");
   }
 
@@ -27,5 +23,4 @@ export default async function ProfilePage() {
 
   // Pass data to Client Component
   return <ProfilePageClient initialProfile={profileData} />;
-  return <h2>{JSON.stringify(profileData)}</h2>;
 }
