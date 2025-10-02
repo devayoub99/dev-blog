@@ -1,7 +1,20 @@
-export default function RecentActivity({ activities = [] }) {
+interface Activity {
+  id: string;
+  type: string;
+  title: string;
+  createdAt: string | Date;
+}
+
+interface RecentActivityProps {
+  activities?: Activity[];
+}
+
+export default function RecentActivity({
+  activities = [],
+}: RecentActivityProps) {
   // Helper function to get activity color based on type
-  const getActivityColor = (type) => {
-    const colorMap = {
+  const getActivityColor = (type: string) => {
+    const colorMap: Record<string, string> = {
       POST_PUBLISHED: "bg-blue-500",
       PROFILE_UPDATED: "bg-green-500",
       COMMUNITY_JOINED: "bg-purple-500",
@@ -12,7 +25,7 @@ export default function RecentActivity({ activities = [] }) {
   };
 
   // Helper function to format date to relative time
-  const formatTimeAgo = (date) => {
+  const formatTimeAgo = (date: string | Date) => {
     if (!date) return "Unknown";
 
     const now = new Date();
