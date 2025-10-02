@@ -17,7 +17,7 @@ export default function RecentActivity({ activities = [] }) {
 
     const now = new Date();
     const activityDate = new Date(date);
-    const diffMs = now - activityDate;
+    const diffMs = now.getTime() - activityDate.getTime();
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
     const diffWeeks = Math.floor(diffDays / 7);
     const diffMonths = Math.floor(diffDays / 30);
