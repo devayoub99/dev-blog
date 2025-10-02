@@ -106,7 +106,7 @@ export default function ProfilePageClient({ initialProfile }) {
           </div>
         </div>
 
-        <ProfileRecentActivity activities={profile.activities} />
+        {/*<ProfileRecentActivity activities={profile.activities} /> */}
       </div>
     </div>
   );
