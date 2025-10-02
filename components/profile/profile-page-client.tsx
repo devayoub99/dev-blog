@@ -6,7 +6,7 @@ import ProfileStats from "@/components/profile/profile-stats";
 import ProfileBio from "@/components/profile/profile-bio";
 import ProfileContactInfo from "@/components/profile/profile-contact-info";
 import ProfileSocialLinks from "@/components/profile/profile-social-links";
-import ProfileRecentActivity from "@/components/profile/profile-recent-activity";
+// import ProfileRecentActivity from "@/components/profile/profile-recent-activity";
 
 export default function ProfilePageClient({ initialProfile }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -106,7 +106,7 @@ export default function ProfilePageClient({ initialProfile }) {
           </div>
         </div>
 
-        <ProfileRecentActivity activities={profile.activities} />
+        {/* <ProfileRecentActivity activities={profile.activities} /> */}
       </div>
     </div>
   );
