@@ -88,5 +88,7 @@ export const register = async (data: {
 };
 
 export const logout = async () => {
-  await signOut({ redirectTo: "/login" });
+  await signOut({ 
+    redirectTo: process.env.NEXTAUTH_URL ? `${process.env.NEXTAUTH_URL}/login` : "/login" 
+  });
 };
