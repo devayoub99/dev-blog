@@ -46,9 +46,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  // CRITICAL FIXES:
-  trustHost: true, // Essential for Railway/production
-  secret: process.env.AUTH_SECRET, // Changed from NEXTAUTH_SECRET
+  trustHost: true, 
+  secret: process.env.AUTH_SECRET, 
   
   callbacks: {
     async session({ session, token }) {
@@ -67,6 +66,5 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   },
   pages: {
     signIn: "/login",
-    // Remove signOut page - it causes the "undefined" issue
   },
 });
